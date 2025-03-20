@@ -1,4 +1,6 @@
-﻿namespace _250319_기본실습
+﻿using System.Text;
+
+namespace _250319_기본실습
 {
 	internal class Program
 	{
@@ -260,56 +262,45 @@
 			}
 		}
 
-
-		static void PrintScore(int score)
-		{
-			Console.WriteLine($"\n현재점수: {score}");
-		}
-
 		static void PrintEndScreen()
 		{
 			Console.Clear();
 			Console.WriteLine("끗");
 		}
 
-		static void PrintAll(char[,] map)
+
+		static void Render(char[,] map)
 		{
+			StringBuilder buffer = new StringBuilder();
+			Console.SetCursorPosition(0, 0); // 커서를 맨 위로 이동하여 덮어쓰기
+
 			for (int i = 0; i < mapHeight; i++)
 			{
 				for (int j = 0; j < mapWidth; j++)
 				{
-					if (map[i, j] == '▒')
+					switch (map[i, j])
 					{
-						Console.ForegroundColor = ConsoleColor.Red;
-						Console.Write(map[i, j]);
-						Console.ResetColor();
-					}
-					else if (map[i, j] == ' ')
-						Console.Write(map[i, j]);
-					else if (map[i, j] == '▼')
-					{
-						Console.ForegroundColor = ConsoleColor.Green;
-						Console.Write(map[i, j]);
-						Console.ResetColor();
-					}
-					else if (map[i, j] == '♥')
-					{
-						Console.ForegroundColor = ConsoleColor.Blue;
-						Console.Write(map[i, j]);
-						Console.ResetColor();
+						case '▒': // 빨간색 벽
+							buffer.Append("\x1b[31m▒\x1b[0m");
+							break;
+						case '▼': // 초록색 플레이어
+							buffer.Append("\x1b[32m▼\x1b[0m");
+							break;
+						case '♥': // 파란색 목표
+							buffer.Append("\x1b[34m♥\x1b[0m");
+							break;
+						default: // 일반 문자
+							buffer.Append(map[i, j]);
+							break;
 					}
 				}
-				Console.WriteLine();
+				buffer.AppendLine();
 			}
+
+			buffer.AppendLine($"\n현재 점수: {score}");
+			Console.Write(buffer.ToString()); // 한 번에 출력
 		}
 
-
-		static void Render(char[,] map)
-		{
-			Console.SetCursorPosition(0, 0);
-			PrintAll(map);
-			PrintScore(score);
-		}
 
 
 	}
