@@ -237,7 +237,7 @@
 
 		static void CheckArrival(char[,] map)
 		{
-			if (map[goalY, goalX]!='♥')
+			if (map[goalY, goalX] != '♥')
 			{
 				// 하트위치 변경
 				if (goalX == 79 && goalY == 19)
@@ -245,12 +245,12 @@
 					goalX = 1;
 					goalY = 19;
 				}
-				else if (goalX ==1 && goalY == 19)
+				else if (goalX == 1 && goalY == 19)
 				{
 					goalX = 79;
 					goalY = 1;
 				}
-				else if(goalX ==79 && goalY == 1)
+				else if (goalX == 79 && goalY == 1)
 				{
 					goalX = 1;
 					goalY = 1;
@@ -306,7 +306,7 @@
 
 		static void Render(char[,] map)
 		{
-			Console.Clear();
+			Console.SetCursorPosition(0, 0);
 			PrintAll(map);
 			PrintScore(score);
 		}
