@@ -138,14 +138,7 @@
 
 		static void SetGoal(char[,] map)
 		{
-			Random random = new Random();
-
-			//if (playerX > 10)
-			//{
-
-			//}
 			map[goalY, goalX] = '♥';
-
 		}
 
 
@@ -262,7 +255,7 @@
 					goalX = 1;
 					goalY = 1;
 				}
-				SetGoal(map);
+				GenerateMap(map);
 				score += 100;
 			}
 		}
